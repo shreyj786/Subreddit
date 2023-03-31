@@ -18,12 +18,14 @@ Practice React native project
 2.Typescript 
 3.Show list of post 
 4.Hit list for top, new, hot 
+
 5.Show
    - image ,
    - title ,
    - author,
    - total votes ,
    - number of comments
+ 
 6.Pull to Refresh
 7.App icon
 8.Splash Screen
