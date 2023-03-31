@@ -1,13 +1,7 @@
 # Subreddit
 Practice React native project 
 /* 
-**************************
-// React Native TODO:
-**************************
 
-  Redux
-  provide apk
-  
 **************************
 // For API Integration
 **************************
@@ -35,10 +29,6 @@ Practice React native project
  App icon
  Splash Screen
  Only Portrait
+ Open webview 
 
-
-**************************
-// PLEASE NOTE:
-************************** 
- Open webview -> google.com is opening as url in API is providing jpg image
 */
