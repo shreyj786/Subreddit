@@ -1,20 +1,58 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar } from "expo-status-bar";
+import Home from "./screens/Home";
 
-export default function App() {
+/* 
+**************************
+// React Native TODO:
+**************************
+
+ 4. code explanation and assumption
+ 8. Redux
+ 11.provide apk
+ 12.Github Repo
+
+**************************
+// For API Integration
+**************************
+
+ 1. Request
+ 2. Response
+ 3. Data Serive
+
+***************************
+// DONE Task
+***************************
+
+ Tab 
+ Typescript 
+ Axios
+ Show list of post 
+ Hit list for top, new, hot 
+ Show
+   - image ,
+   - title ,
+   - author,
+   - total votes ,
+   - number of comments
+ Pull to Refresh
+ App icon
+ Splash Screen
+ Only Portrait
+
+
+**************************
+// PLEASE NOTE:
+************************** 
+ Open webview -> google.com is opening as url in API is providing jpg image
+*/
+
+function App(): JSX.Element {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
+    <>
       <StatusBar style="auto" />
-    </View>
+      <Home />
+    </>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
