@@ -15,20 +15,20 @@ Practice React native project
 ***************************
 
  Tab 
- Typescript 
- Axios
- Show list of post 
- Hit list for top, new, hot 
- Show
+1.Typescript 
+2.Axios
+3.Show list of post 
+4.Hit list for top, new, hot 
+5.Show
    - image ,
    - title ,
    - author,
    - total votes ,
    - number of comments
- Pull to Refresh
- App icon
- Splash Screen
- Only Portrait
- Open webview 
+6.Pull to Refresh
+7.App icon
+8.Splash Screen
+9.Only Portrait
+10.Open webview 
 
 */
