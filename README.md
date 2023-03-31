@@ -14,9 +14,8 @@ Practice React native project
 // What it contains 
 ***************************
 
- Tab 
-1.Typescript 
-2.Axios
+1.Tab 
+2.Typescript 
 3.Show list of post 
 4.Hit list for top, new, hot 
 5.Show
@@ -30,5 +29,5 @@ Practice React native project
 8.Splash Screen
 9.Only Portrait
 10.Open webview 
-
+11.API data fetching using Axios 
 */
