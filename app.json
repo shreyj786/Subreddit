@@ -21,10 +21,16 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/newIcon.png",
         "backgroundColor": "#FF5722"
-      }
+      },
+      "package": "com.shreyjain.subreddit"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "9dcf6650-de6a-453a-83e1-75599f81093f"
+      }
     }
   }
 }

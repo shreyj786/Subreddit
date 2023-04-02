@@ -5,6 +5,7 @@ import { COLOR, SIZES } from "../../constants";
 import { TabInterface, TabsInterface } from "./TabsInterface";
 
 function TabButton({ tabName, activeTab, onHandleSearchType }: TabInterface) {
+
   return (
     <Pressable
       style={() => [
@@ -28,6 +29,7 @@ function TabButton({ tabName, activeTab, onHandleSearchType }: TabInterface) {
 }
 
 const Tabs = ({ tabs, activeTab, setActiveTab }: TabsInterface) => {
+
   return (
     <View style={styles.container}>
       <FlatList

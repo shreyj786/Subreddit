@@ -12,13 +12,6 @@ import { useCallback, useEffect, useState } from "react";
 import { Children, ResponseModel } from "../models/ResponseModel";
 import axios from "axios";
 import { COLOR, SIZES } from "../constants";
-// import { useDispatch,useSelector } from "react-redux";
-
-
-// Implemented REDUX 
-// import {  getReddit } from "../redux/actions"; 
-// import { ChildrenState } from "../redux/reducers";
-// import { Dispatch } from "redux";
 
 const tabs = ["New", "Top", "Hot"];
 
@@ -27,14 +20,6 @@ const Home = () => {
   const [listData, setListData] = useState<Children[]>();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string>("");
-
-
-// const reddits  = useSelector((state:ChildrenState) => state.reddit)
-
-// const dispatch = useDispatch()
-
-// const dispatch: Dispatch
-// <AnyAction>(action: AnyAction) => AnyAction
 
   const fetchData = async (endpoint: string) => {
     setIsLoading(true);
@@ -53,17 +38,19 @@ const Home = () => {
 
   useEffect(() => {
     fetchData(activeTabs);
-    // dispatch( getReddit(tabs[0])as any)
   }, []);
 
   const onRefresh = useCallback(() => {
     setIsLoading(true);
+    setActiveTabs(activeTabs);
+
     setTimeout(() => {
       fetchData(activeTabs);
       setIsLoading(false);
     }, 1000);
-  }, []);
 
+
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>
