@@ -1,15 +1,15 @@
 import { StatusBar } from "expo-status-bar";
 import Home from "./screens/Home";
+import { Provider } from "react-redux";
+import { Store } from "./redux/store";
 
 /* 
 **************************
 // React Native TODO:
 **************************
 
- 4. code explanation and assumption
- 8. Redux
- 11.provide apk
- 12.Github Repo
+ 1.Redux
+ 2.provide apk
 
 **************************
 // For API Integration
@@ -17,7 +17,7 @@ import Home from "./screens/Home";
 
  1. Request
  2. Response
- 3. Data Serive
+ 3. Data Service
 
 ***************************
 // DONE Task
@@ -38,6 +38,7 @@ import Home from "./screens/Home";
  App icon
  Splash Screen
  Only Portrait
+ Github Repo
 
 
 **************************
@@ -48,10 +49,10 @@ import Home from "./screens/Home";
 
 function App(): JSX.Element {
   return (
-    <>
+    <Provider store = {Store}>
       <StatusBar style="auto" />
       <Home />
-    </>
+    </Provider>
   );
 }
 

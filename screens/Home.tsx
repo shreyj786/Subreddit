@@ -12,41 +12,60 @@ import { useCallback, useEffect, useState } from "react";
 import { Children, ResponseModel } from "../models/ResponseModel";
 import axios from "axios";
 import { COLOR, SIZES } from "../constants";
+import { useDispatch,useSelector } from "react-redux";
+
+
+// Implemented REDUX 
+import {  getReddit } from "../redux/actions"; 
+import { ChildrenState } from "../redux/reducers";
+import { Dispatch } from "redux";
 
 const tabs = ["New", "Top", "Hot"];
 
 const Home = () => {
   const [activeTabs, setActiveTabs] = useState(tabs[0]);
-  const [listData, setListData] = useState<Children[]>();
+  // const [listData, setListData] = useState<Children[]>();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string>("");
 
-  const fetchData = async (endpoint: string) => {
-    setIsLoading(true);
-    try {
-      const response = await axios.get<ResponseModel>(
-        `https://api.reddit.com/r/pics/${endpoint.toLowerCase()}.json?limit=10`
-      );
-      setListData(response.data.data.children);
-    } catch (e) {
-      setError((e as Error).message);
-      alert("There is an error");
-    } finally {
-      setIsLoading(false);
-    }
-  };
+
+const reddits  = useSelector((state:ChildrenState) => state.reddit)
+
+const dispatch = useDispatch()
+
+// const dispatch: Dispatch
+// <AnyAction>(action: AnyAction) => AnyAction
+
+  // const fetchData = async (endpoint: string) => {
+  //   setIsLoading(true);
+  //   try {
+  //     const response = await axios.get<ResponseModel>(
+  //       `https://api.reddit.com/r/pics/${endpoint.toLowerCase()}.json?limit=10`
+  //     );
+  //     setListData(response.data.data.children);
+  //   } catch (e) {
+  //     setError((e as Error).message);
+  //     alert("There is an error");
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
 
   useEffect(() => {
-    fetchData(activeTabs);
+    // fetchData(activeTabs);
+    dispatch( getReddit(tabs[0])as any)
   }, []);
 
   const onRefresh = useCallback(() => {
     setIsLoading(true);
     setTimeout(() => {
-      fetchData(activeTabs);
+      // fetchData(activeTabs);
       setIsLoading(false);
     }, 1000);
   }, []);
+
+console.log(`{reddits} -> ${reddits}`);
+
 
   return (
     <SafeAreaView style={styles.container}>
@@ -56,7 +75,7 @@ const Home = () => {
           activeTab={activeTabs}
           setActiveTab={(item) => {
             setActiveTabs(item);
-            fetchData(item);
+            // fetchData(item);
           }}
         />
       </View>
@@ -65,7 +84,7 @@ const Home = () => {
         <ActivityIndicator size="large" color={COLOR.primary} />
       ) : error ? (
         <Text>Something went wrong</Text>
-      ) : listData?.length === 0 ? (
+      ) : reddits?.length === 0 ? (
         <Text>No data available</Text>
       ) : (
         <View style={{ padding: SIZES.medium, paddingBottom: 100 }}>
@@ -74,7 +93,7 @@ const Home = () => {
               <RefreshControl refreshing={isLoading} onRefresh={onRefresh} />
             }
             style={{ marginBottom: 30 }}
-            data={listData}
+            data={reddits}
             renderItem={({ item }) => <Card item={item} />}
             keyExtractor={(item) => item.data.created.toString()}
           />
