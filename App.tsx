@@ -2,6 +2,8 @@ import { StatusBar } from "expo-status-bar";
 import Home from "./screens/Home";
 import { Provider } from "react-redux";
 import { Store } from "./redux/store";
+import {StyleSheet, View} from 'react-native'
+import { COLOR } from "./constants";
 
 /* 
 **************************
@@ -51,9 +53,20 @@ function App(): JSX.Element {
   return (
     <Provider store = {Store}>
       <StatusBar style="auto" />
-      <Home />
+     
+     <View style={styles.bgColor}>
+     <Home />
+     </View>
+
     </Provider>
   );
 }
+
+const styles = StyleSheet.create({
+  bgColor: {
+    backgroundColor: COLOR.bgColor,
+  },
+
+});
 
 export default App;

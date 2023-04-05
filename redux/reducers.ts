@@ -16,8 +16,8 @@ export function redditReducer(state = initialState, action: IActionReddit) {
       console.log(`redditReducer -> ${action.payload}`);
 
       return { ...state, reddit: action.payload };
-    // case GET_REDDIT_ERROR:
-    // return { ...state, reddit: action.payload };
+    case GET_REDDIT_ERROR:
+    return { ...state, error: action.payload };
 
     default:
       return state;

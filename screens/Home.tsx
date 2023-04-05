@@ -1,5 +1,6 @@
 import {
   ActivityIndicator,
+  Dimensions,
   FlatList,
   RefreshControl,
   SafeAreaView,
@@ -12,18 +13,19 @@ import { useCallback, useEffect, useState } from "react";
 import { COLOR, SIZES } from "../constants";
 import { getReddit } from "../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
-import { ChildrenState } from "../models/Interfaces";
+import { ChildrenState, RedditErrorState } from "../models/Interfaces";
 
 const tabs = ["New", "Top", "Popular", "Hot"];
 
 const Home = () => {
   const [activeTabs, setActiveTabs] = useState(tabs[0]);
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string>("");
 
   const reddits = useSelector(
     (state: ChildrenState) => state.redditReducer.reddit
   );
+
+  const error = useSelector( (state: RedditErrorState) => state.redditReducer.error  )
 
   const dispatch = useDispatch();
 
@@ -59,10 +61,10 @@ const Home = () => {
         />
       </View>
 
-      {/* {isLoading ? (
+      {isLoading ? (
         <ActivityIndicator size="large" color={COLOR.white} />
-      ) : error ? (
-        <Text>Something went wrong</Text>
+      ) : error === ''  ? (
+        <Text style={styles.textCenter}> Something went wrong</Text>
       ) : reddits?.length === 0 ? (
         <Text>No data available</Text>
       ) : (
@@ -77,7 +79,7 @@ const Home = () => {
             keyExtractor={(item) => item.data.name.toString()}
           />
         </View>
-      )} */}
+      )}
 
     </SafeAreaView>
   );
@@ -100,4 +102,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
     height: 60,
   },
+
+  textCenter: {
+    textAlign: 'center', 
+    width: Dimensions.get("window").width,
+    marginVertical: 15, 
+    color: COLOR.white, 
+    fontSize: 18,
+    fontWeight: 'bold', 
+  }
 });

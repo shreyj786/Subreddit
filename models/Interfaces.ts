@@ -11,6 +11,12 @@ export interface IActionReddit {
     };
   }
 
+  export interface RedditErrorState {
+    redditReducer: {
+      error: string;
+    };
+  }
+
   // for all tabs
 export interface TabsInterface {
     tabs: string[];

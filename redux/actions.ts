@@ -6,7 +6,7 @@ export const GET_REDDIT_ERROR = "GET_REDDIT_ERROR";
 
 // General Reddit API endpoint
 const API_URL = (endpoint: string) =>
-  `https://api.reddit.com/r/pics/${endpoint.toLowerCase()}.json?limit=10`;
+  `https://api.reddit.com/r/pics/${endpoint.toLowerCase()}.json`;
 
 /**
  *  `getReddit` action method which is called from the `Home` screen
@@ -33,7 +33,7 @@ export const getReddit = (endpoint: string) => {
         payload: response?.data?.data?.children,
       });
     } catch (e) {
-      console.log((e as Error).message);
+      console.log(e );
 
       dispatch({
         type: GET_REDDIT_ERROR,
