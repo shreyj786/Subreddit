@@ -1,34 +1,44 @@
 import axios from "axios";
-import { Children, ResponseModel } from "../models/ResponseModel";
-import { Action, Dispatch } from "redux";
+import { ResponseModel } from "../models/ResponseModel";
 
+export const GET_REDDIT = "GET_REDDIT";
+export const GET_REDDIT_ERROR = "GET_REDDIT_ERROR";
 
-export const GET_REDDIT = 'GET_REDDIT'; 
+// General Reddit API endpoint
+const API_URL = (endpoint: string) =>
+  `https://api.reddit.com/r/pics/${endpoint.toLowerCase()}.json?limit=10`;
 
-const API_URL = (endpoint:string) => (`https://api.reddit.com/r/pics/${endpoint.toLowerCase()}.json?limit=10`)
+/**
+ *  `getReddit` action method which is called from the `Home` screen
+ * and returns reddit data as an `Children[]`
+ */
+export const getReddit = (endpoint: string) => {
+  console.log(`endpoint -> ${endpoint}`);
 
-
-export interface IActionReddit {
-    type: string;
-    payload: Children[];
-  }
-
- export type DispatchReddit = (arg: IActionReddit) => (IActionReddit);
-
-export const getReddit = (endpoint:string) => {
-    try {
-        // : (arg0: { type: string; payload: Children[]; }) => void
-        return async (dispatch: DispatchReddit) => {
-            const response = await axios.get<ResponseModel>(API_URL(endpoint));
-
-            console.log(`response -> ${response.data.data.children}`);
-            
-            dispatch ({
-                type: GET_REDDIT,
-                payload: response.data.data.children
-            });
-        }
-    } catch (e) {
-        console.log((e as Error).message);
+  var newEndpoint: string ; 
+    if(endpoint === "Popular"){
+      newEndpoint = "new"
+    }else {
+      newEndpoint = endpoint
     }
-}
+
+  return async (dispatch: any) => {
+    try {
+      const response = await axios.get<ResponseModel>(API_URL(newEndpoint));
+
+      console.log(`response -> ${response?.data?.data?.children} `);
+
+      dispatch({
+        type: GET_REDDIT,
+        payload: response?.data?.data?.children,
+      });
+    } catch (e) {
+      console.log((e as Error).message);
+
+      dispatch({
+        type: GET_REDDIT_ERROR,
+        payload: (e as Error).message,
+      });
+    }
+  };
+};

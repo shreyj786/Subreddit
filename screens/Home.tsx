@@ -9,81 +9,76 @@ import {
 } from "react-native";
 import { Card, Tabs } from "../components";
 import { useCallback, useEffect, useState } from "react";
-import { Children, ResponseModel } from "../models/ResponseModel";
-import axios from "axios";
 import { COLOR, SIZES } from "../constants";
+import { getReddit } from "../redux/actions";
+import { useDispatch, useSelector } from "react-redux";
+import { ChildrenState } from "../models/Interfaces";
 
-const tabs = ["New", "Top", "Hot"];
+const tabs = ["New", "Top", "Popular", "Hot"];
 
 const Home = () => {
   const [activeTabs, setActiveTabs] = useState(tabs[0]);
-  const [listData, setListData] = useState<Children[]>();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string>("");
 
-  const fetchData = async (endpoint: string) => {
-    setIsLoading(true);
-    try {
-      const response = await axios.get<ResponseModel>(
-        `https://api.reddit.com/r/pics/${endpoint.toLowerCase()}.json?limit=10`
-      );
-      setListData(response.data.data.children);
-    } catch (e) {
-      setError((e as Error).message);
-      alert("There is an error");
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  const reddits = useSelector(
+    (state: ChildrenState) => state.redditReducer.reddit
+  );
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    fetchData(activeTabs);
+    setIsLoading(true);
+    dispatch(getReddit(activeTabs) as any);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
   }, []);
 
   const onRefresh = useCallback(() => {
     setIsLoading(true);
-    setActiveTabs(activeTabs);
-
     setTimeout(() => {
-      fetchData(activeTabs);
       setIsLoading(false);
     }, 1000);
-
-
   }, []);
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={styles.paddingTopStyle}>
       <View style={styles.itemCenter}>
         <Tabs
           tabs={tabs}
           activeTab={activeTabs}
           setActiveTab={(item) => {
+            setIsLoading(true);
             setActiveTabs(item);
-            fetchData(item);
+            dispatch(getReddit(item) as any);
+            setTimeout(() => {
+              setIsLoading(false);
+            }, 1000);
           }}
         />
       </View>
 
-      {isLoading ? (
-        <ActivityIndicator size="large" color={COLOR.primary} />
+      {/* {isLoading ? (
+        <ActivityIndicator size="large" color={COLOR.white} />
       ) : error ? (
         <Text>Something went wrong</Text>
-      ) : listData?.length === 0 ? (
+      ) : reddits?.length === 0 ? (
         <Text>No data available</Text>
       ) : (
-        <View style={{ padding: SIZES.medium, paddingBottom: 100 }}>
+        <View style={styles.listStyle}>
           <FlatList
             refreshControl={
               <RefreshControl refreshing={isLoading} onRefresh={onRefresh} />
             }
-            style={{ marginBottom: 30 }}
-            data={listData}
+            style={styles.marginBottomStyle}
+            data={reddits}
             renderItem={({ item }) => <Card item={item} />}
-            keyExtractor={(item) => item.data.created.toString()}
+            keyExtractor={(item) => item.data.name.toString()}
           />
         </View>
-      )}
+      )} */}
+
     </SafeAreaView>
   );
 };
@@ -91,9 +86,14 @@ const Home = () => {
 export default Home;
 
 const styles = StyleSheet.create({
-  container: {
+  paddingTopStyle: {
     paddingTop: 50,
+    backgroundColor: COLOR.bgColor,
   },
+  listStyle: { padding: SIZES.medium, paddingBottom: 100 },
+
+  marginBottomStyle: { marginBottom: 30 },
+
   itemCenter: {
     display: "flex",
     justifyContent: "center",

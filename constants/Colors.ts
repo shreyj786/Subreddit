@@ -1,9 +1,10 @@
 export  const COLOR = {
-bgColor : '#675666' ,
+bgColor : '#ADD8E6' ,
 white: '#fff', 
 
-primary: '#121212', 
+primary: '#347bc7', 
 secondary : '#F3F4F8', 
-cardColor : '#FAEDCD', 
+cardColor : '#d9db5a', 
+
 
 } 

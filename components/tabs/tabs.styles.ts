@@ -6,14 +6,11 @@ const styles = StyleSheet.create({
   container: {
     marginTop: SIZES.small,
     marginBottom: SIZES.small / 2,
+ 
   },
   btn: {
     paddingVertical: SIZES.small,
-    paddingHorizontal: SIZES.xLarge,
-    borderRadius: SIZES.medium,
-    marginLeft: 2,
-    ...SHADOWS.medium,
-    shadowColor: COLOR.white,
+    paddingHorizontal: SIZES.xxLarge,
   
   },
   btnText:  {

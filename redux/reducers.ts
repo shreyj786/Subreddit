@@ -1,25 +1,27 @@
+import { ChildrenState, IActionReddit } from "../models/Interfaces";
+import { GET_REDDIT, GET_REDDIT_ERROR } from "./actions";
 
-import { Children } from '../models/ResponseModel';
-import { GET_REDDIT } from './actions';
 
-export interface ChildrenState{
-    reddit: Children[]
-}
-
+// initialState is empty array 
 const initialState = {
+  redditReducer: {
     reddit: [],
-} as ChildrenState
+  },
+} as ChildrenState;
 
-function userReducer(state = initialState, action:any) {
-    switch (action.type) {
-        case GET_REDDIT:
-            console.log(`userReducer -> ${action.payload}`);
-            
-            return { ...state, reddit: action.payload };
-        default:
-            return state;
-    }
+//returns reddit array
+export function redditReducer(state = initialState, action: IActionReddit) {
+  switch (action.type) {
+    case GET_REDDIT:
+      console.log(`redditReducer -> ${action.payload}`);
+
+      return { ...state, reddit: action.payload };
+    // case GET_REDDIT_ERROR:
+    // return { ...state, reddit: action.payload };
+
+    default:
+      return state;
+  }
 }
 
-export default userReducer;
-
+// export redditReducer;

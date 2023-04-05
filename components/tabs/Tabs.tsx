@@ -2,14 +2,14 @@ import React from "react";
 import { View, Text, FlatList, Pressable } from "react-native";
 import styles from "./tabs.styles";
 import { COLOR, SIZES } from "../../constants";
-import { TabInterface, TabsInterface } from "./TabsInterface";
+import { TabInterface, TabsInterface } from "../../models/Interfaces";
 
 function TabButton({ tabName, activeTab, onHandleSearchType }: TabInterface) {
 
   return (
     <Pressable
       style={() => [
-        { backgroundColor: tabName === activeTab ? COLOR.primary : COLOR.secondary },
+        { backgroundColor: tabName === activeTab ? COLOR.primary : COLOR.white },
         styles.btn,
       ]}
       onPress={() => onHandleSearchType(tabName)}
@@ -17,7 +17,7 @@ function TabButton({ tabName, activeTab, onHandleSearchType }: TabInterface) {
       {() => (
         <Text
           style={[
-            { color: tabName === activeTab ? "#C3BFCC" : "#AAA9B8" },
+            { color: tabName === activeTab ?COLOR.white: COLOR.primary  },
             styles.btnText,
           ]}
         >
@@ -43,7 +43,6 @@ const Tabs = ({ tabs, activeTab, setActiveTab }: TabsInterface) => {
             onHandleSearchType={() => setActiveTab(item)}
           />
         )}
-        contentContainerStyle={{ columnGap: SIZES.small / 2 }}
         keyExtractor={(item) => item}
       />
     </View>
